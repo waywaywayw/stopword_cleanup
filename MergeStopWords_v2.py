@@ -54,12 +54,13 @@ if __name__ == "__main__":
         # break
 
     # 去掉频率较低的停用词（可选）
-    # threshold = 1   # 小于1的词去掉
-    # word_cnt = [x for x,p in word_cnt.items() if p>threshold]
+    threshold = 0   # 小于阈值的词去掉
+    word_cnt = [x for x,p in word_cnt.items() if p>threshold]
 
     # 只保留中文词（可选）
-    word_cnt = list(filter(lambda x: re.match(r'[\u4E00-\u9FD5]+', x), word_cnt))
+    word_cnt = list(filter(lambda x: re.match(r'[\u4E00-\u9FD5]+$', x), word_cnt))
+    # word_cnt = list(word_cnt)
 
     # 排序并保存
     word_cnt.sort()
-    SaveFile(word_cnt, os.path.join('output',"stopwords_cn.txt"))
+    SaveFile(word_cnt, os.path.join('output',"stopwords_CN.txt"))
