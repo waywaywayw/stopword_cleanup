@@ -6,7 +6,7 @@
 import os
 import re
 from collections import Counter
-from atools_python.files import MyFiles
+from atools_python.files import MyFiles, readlines_from_file
 
 # 获取停用词的List
 def GetListOfStopWords(filepath):
@@ -59,7 +59,11 @@ if __name__ == "__main__":
 
     # 只保留中文词（可选）
     word_cnt = list(filter(lambda x: re.match(r'[\u4E00-\u9FD5]+$', x), word_cnt))
-    # word_cnt = list(word_cnt)
+    word_cnt = list(word_cnt)
+
+    # 去掉白名单的词（白名单的意思是 不是停用词..）
+    while_list = readlines_from_file('while_list.txt')
+    word_cnt = list(filter(lambda x: x not in while_list, word_cnt))
 
     # 排序并保存
     word_cnt.sort()
